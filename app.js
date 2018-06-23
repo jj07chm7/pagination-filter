@@ -31,7 +31,12 @@ function generatePaginationLinks(numberOfPages) {
   let i = 1;
   // Append page links to unordered list under pagination class
   while (numberOfPages >= i) {
-    $('.pagination ul').append('<li><a href="#">' + i + '</a></li>');
+    // When initializing page, set first pagination link to active
+    if (i == 1) {
+      $('.pagination ul').append('<li><a class="active" href="#">' + i + '</a></li>');
+    } else {
+      $('.pagination ul').append('<li><a href="#">' + i + '</a></li>');
+    }
     i++;
   }
 }
@@ -47,6 +52,10 @@ generatePaginationLinks(studentNumber);
 
 // Event listener for clicking on page numbers
 $('.pagination a').on('click', function(event) {
+  // Clear active page link
+  $('.pagination a').removeClass('active');
   let pageNumber = $(this)[0].innerText;
+  // Add class active to page link 
+  $(this).addClass('active');
   showPage(parseInt(pageNumber), students);
 })
